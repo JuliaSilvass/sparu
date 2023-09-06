@@ -1,0 +1,140 @@
+/* Criando bando de dados: */
+
+create database sparu;
+
+/* Criando tabelas: */
+
+/*Tabela endereco*/
+
+CREATE TABLE endereco (
+
+cod_endereco INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+rua VARCHAR(255),
+
+numero INT (5),
+
+bairro VARCHAR (255),
+
+complemento VARCHAR (255),
+cidade VARCHAR(255),
+estado VARCHAR(255),
+cep VARCHAR(10)
+
+)
+
+/*Tabela telefone*/
+
+CREATE TABLE telefone(
+
+cod_telefone INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+num1 INT (11) NOT NULL,
+
+tipo VARCHAR (50) 
+
+)
+
+/*Tabela imovel*/
+
+CREATE TABLE imovel(
+
+cod_imovel INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+preco FLOAT (6,2) NOT NULL, 
+
+descricao VARCHAR (500) NOT NULL,
+
+categoria VARCHAR (50),
+
+status VARCHAR (50) NOT NULL, 
+
+cod_endereco INT (5),
+
+FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco)
+
+)
+
+/* tabela produto*/
+
+CREATE TABLE produto(
+
+cod_produto INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+
+preco FLOAT (6,2) NOT NULL, 
+
+descricao VARCHAR (500) NOT NULL,
+
+categoria VARCHAR (50),
+
+status VARCHAR (50) NOT NULL, 
+
+cod_endereco INT(5),
+
+FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco)
+
+)
+
+/* Tabela usuários */
+
+create table usuario (
+cod_usuario int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(30) NOT NULL,
+cpf VARCHAR(11) NOT NULL ,
+data_nasc DATE,
+login VARCHAR(80) NOT NULL,
+senha VARCHAR(80) NOT NULL,
+
+cod_endereco INT (5),
+
+cod_telefone INT (5),
+
+cod_imovel INT (5),
+
+FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco),
+
+FOREIGN KEY (cod_telefone) REFERENCES telefone (cod_telefone),
+
+FOREIGN KEY (cod_imovel) REFERENCES imovel (cod_imovel),
+
+)
+
+/* tabela locador*/
+
+CREATE TABLE locador (
+
+cod_locador INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+cod_usuario int(5), 
+
+FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario)  
+
+)
+
+/* tabela locatario*/
+
+CREATE TABLE locatario(
+
+cod_locatario INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+cod_usuario int(5), 
+
+FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario)
+
+)
+
+/* *Tabela documento **/
+
+CREATE TABLE documento(
+cod_doc INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+tipo VARCHAR (50),
+data_ass DATE,
+validade DATE,
+cod_imovel INT (5),
+cod_locador INT (5),
+cod_locatario INT (5),
+FOREIGN KEY (cod_imovel) REFERENCES  imovel (cod_imovel),
+
+FOREIGN KEY (cod_locador) REFERENCES  locador (cod_locador),
+
+FOREIGN KEY (cod_locatario) REFERENCES  locatario (cod_locatario)
+)

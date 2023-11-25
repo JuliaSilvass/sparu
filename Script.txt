@@ -1,140 +1,181 @@
-/* Criando bando de dados: */
+/* Criando bando de dados: */ 
 
-create database sparu;
+CREATE DATABASE sparu; 
 
-/* Criando tabelas: */
+  
 
-/*Tabela endereco*/
+/* Criando tabelas: */ 
 
-CREATE TABLE endereco (
+/* Tabela usuário */ 
 
-cod_endereco INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-rua VARCHAR(255),
+CREATE TABLE usuario ( 
 
-numero INT (5),
+cod_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-bairro VARCHAR (255),
+nome VARCHAR(50) NOT NULL, 
 
-complemento VARCHAR (255),
-cidade VARCHAR(255),
-estado VARCHAR(255),
-cep VARCHAR(10)
+cpf VARCHAR(11) NOT NULL , 
 
-)
+data_nasc DATE, 
 
-/*Tabela telefone*/
+login VARCHAR(80) NOT NULL UNIQUE, 
 
-CREATE TABLE telefone(
+senha VARCHAR(80) NOT NULL 
 
-cod_telefone INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+); 
 
-num1 INT (11) NOT NULL,
+/* Tabela telefone */ 
 
-tipo VARCHAR (50) 
+CREATE TABLE telefone ( 
 
-)
+cod_telefone INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-/*Tabela imovel*/
+num1 INT NOT NULL, 
 
-CREATE TABLE imovel(
+tipo VARCHAR(50), 
 
-cod_imovel INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+cod_usuario INT, 
 
-preco FLOAT (6,2) NOT NULL, 
+FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) 
 
-descricao VARCHAR (500) NOT NULL,
+); 
 
-categoria VARCHAR (50),
+ 
 
-status VARCHAR (50) NOT NULL, 
+/* Tabela documento */ 
 
-cod_endereco INT (5),
+ CREATE TABLE documento ( 
 
-FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco)
+cod_doc INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-)
+tipo VARCHAR(50), 
 
-/* tabela produto*/
+data_ass DATE, 
 
-CREATE TABLE produto(
+validade DATE 
 
-cod_produto INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+); 
 
-preco FLOAT (6,2) NOT NULL, 
+ 
 
-descricao VARCHAR (500) NOT NULL,
+ 
 
-categoria VARCHAR (50),
+/* Tabela imovel */ 
 
-status VARCHAR (50) NOT NULL, 
+CREATE TABLE imovel (  
 
-cod_endereco INT(5),
+cod_imovel INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  
 
-FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco)
+nome VARCHAR(100) NOT NULL, 
 
-)
+preco FLOAT (6,2) NOT NULL,   
 
-/* Tabela usuários */
+descricao VARCHAR (500) NOT NULL,  
 
-create table usuario (
-cod_usuario int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-nome VARCHAR(30) NOT NULL,
-cpf VARCHAR(11) NOT NULL ,
-data_nasc DATE,
-login VARCHAR(80) NOT NULL,
-senha VARCHAR(80) NOT NULL,
+categoria VARCHAR (50),  
 
-cod_endereco INT (5),
+rua VARCHAR(255) NOT NULL,  
 
-cod_telefone INT (5),
+numero INT NOT NULL DEFAULT 0,  
 
-cod_imovel INT (5),
+bairro VARCHAR(255) NOT NULL,  
 
-FOREIGN KEY (cod_endereco) REFERENCES endereco (cod_endereco),
+complemento VARCHAR(255),  
 
-FOREIGN KEY (cod_telefone) REFERENCES telefone (cod_telefone),
+cidade VARCHAR(255) NOT NULL,  
 
-FOREIGN KEY (cod_imovel) REFERENCES imovel (cod_imovel),
+estado VARCHAR(255) NOT NULL,  
 
-)
+cep VARCHAR(10),  
 
-/* tabela locador*/
+Status TINYINT DEFAULT 1, 
 
-CREATE TABLE locador (
+cod_usuario INT NOT NULL,  
 
-cod_locador INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) 
 
-cod_usuario int(5), 
+); 
 
-FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario)  
+ 
 
-)
+/* Tabela reserva */ 
 
-/* tabela locatario*/
+CREATE TABLE reserva ( 
 
-CREATE TABLE locatario(
+cod_reserva INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-cod_locatario INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ano INT NOT NULL, 
 
-cod_usuario int(5), 
+mes_inicio INT NOT NULL, 
 
-FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario)
+periodo INT NOT NULL, 
 
-)
+cod_imovel INT NOT NULL, 
 
-/* *Tabela documento **/
+FOREIGN KEY (cod_imovel) REFERENCES imovel (cod_imovel) 
 
-CREATE TABLE documento(
-cod_doc INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-tipo VARCHAR (50),
-data_ass DATE,
-validade DATE,
-cod_imovel INT (5),
-cod_locador INT (5),
-cod_locatario INT (5),
-FOREIGN KEY (cod_imovel) REFERENCES  imovel (cod_imovel),
+); 
 
-FOREIGN KEY (cod_locador) REFERENCES  locador (cod_locador),
+ 
 
-FOREIGN KEY (cod_locatario) REFERENCES  locatario (cod_locatario)
-)
+ 
+
+/* tabela produto */ 
+
+CREATE TABLE produto (  
+
+cod_produto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+
+preco FLOAT (6,2) NOT NULL,  
+
+descricao VARCHAR (500) NOT NULL, 
+
+status VARCHAR (50) NOT NULL,  
+
+cidade VARCHAR (255) NOT NULL, 
+
+estado VARCHAR (255) NOT NULL, 
+
+cod_usuario INT, 
+
+FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) 
+
+); 
+
+ 
+
+/* tabela locador */ 
+
+CREATE TABLE locador ( 
+
+cod_locador INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+
+cod_usuario INT,  
+
+cod_doc INT, 
+
+FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario), 
+
+FOREIGN KEY (cod_doc) REFERENCES documento (cod_doc) 
+
+); 
+
+  
+
+/* tabela locatario */ 
+
+CREATE TABLE locatario ( 
+
+cod_locatario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+
+cod_usuario INT, 
+
+cod_doc INT, 
+
+FOREIGN KEY (cod_usuario) REFERENCES  usuario (cod_usuario), 
+
+FOREIGN KEY (cod_doc) REFERENCES documento (cod_doc) 
+
+ 
+
+); 

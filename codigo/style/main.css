@@ -1,0 +1,142 @@
+* {
+  padding:0;
+  margin:0;
+  vertical-align:baseline;
+  list-style:none;
+  text-decoration: none;
+  }
+
+.wrapper {
+  display: flex;
+  background-color: #F2EADF;
+}
+
+.content-area {
+  text-align: center;
+  width: 100%;
+  max-height: 100vh;
+  padding-top:20px;
+}
+
+.nav-bar {
+  background-color: #D9CEC5;
+  padding: 10px;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.nav-bar a {
+  color: white;
+}
+
+.nav-bar p {
+  font-size: 24px;
+  color: white;
+  background-color: #403B31;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 6px 10px;
+}
+
+.title {
+  font-size: 60px;
+}
+
+.msg {
+  padding: 40px 200px;
+  font-size: 20px;
+}
+
+.image img {
+  object-fit: contain;
+  width: 100%;
+}
+
+/* login e cadastro */
+.caixa {
+  width: 320px;
+  margin: auto;
+  background-color: #D9CEC5;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 0px;
+  margin-top: 32px;
+}
+
+.subtitle {
+  font-size: 36px;
+  padding-bottom: 32px;
+}
+
+.form-line {
+  display: flex;
+  font-size: 16px;
+  padding-top: 16px;
+}
+
+.caixa label {
+  width: 100px;
+}
+
+.button {
+  font-size: 24px;
+  color: white;
+  background-color: #403B31;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 24px;
+  padding: 6px 24px;
+}
+
+.caixa-msg {
+  padding-top: 32px;
+}
+
+.warning {
+  color: red;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #D9CEC5;
+  font-weight: bold;
+  padding: 30px;
+  text-align: center;
+  
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+tr:hover td{
+  background-color: #ffffff;
+  text-align: center;
+}
+
+button:hover{
+  background-color: #717272;
+}
+
+.inicio p {
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-bottom: 80px;
+  padding: 6px 10px;
+}
